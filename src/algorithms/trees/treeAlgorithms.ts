@@ -3,9 +3,11 @@ import type { TreeStep, TreeNode } from '../../types/step';
 let nodeIdCounter = 0;
 function newNodeId(): string { return `n${++nodeIdCounter}`; }
 
-function cloneTree(node: TreeNode | null): TreeNode | null {
+function cloneTree(node: TreeNode | null | undefined): TreeNode | null {
   if (!node) return null;
-  return { ...node, left: cloneTree(node.left), right: cloneTree(node.right) };
+  const left = cloneTree(node.left);
+  const right = cloneTree(node.right);
+  return { ...node, left: left === null ? undefined : left, right: right === null ? undefined : right };
 }
 
 // ── BST Insert ────────────────────────────────────────────────────────────────
@@ -40,9 +42,9 @@ export function bstInsert(initialValues: number[]): TreeStep[] {
     });
 
     if (value < node.value) {
-      node.left = insert(node.left, value, [...path, node.id]);
+      node.left = insert(node.left ?? null, value, [...path, node.id]);
     } else if (value > node.value) {
-      node.right = insert(node.right, value, [...path, node.id]);
+      node.right = insert(node.right ?? null, value, [...path, node.id]);
     } else {
       steps.push({
         type: 'info',

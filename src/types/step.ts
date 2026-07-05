@@ -60,6 +60,7 @@ export type GraphStepType =
   | 'mark-path'
   | 'mark-visited'
   | 'set-active'
+  | 'compare'
   | 'info';
 
 export interface GraphStep extends BaseStep {

@@ -33,7 +33,8 @@ export function gridBFS(grid: Grid, start: Coord, end: Coord): GridStep[] {
       // Trace path
       let cur: Coord | null = end;
       while (cur) {
-        const [pr, pc] = cur;
+        const pr: number = cur[0];
+        const pc: number = cur[1];
         if (g[pr][pc] !== 'start' && g[pr][pc] !== 'end') g[pr][pc] = 'path';
         cur = prev[key(pr, pc)] ?? null;
       }
@@ -97,7 +98,8 @@ export function gridAStar(grid: Grid, start: Coord, end: Coord): GridStep[] {
     if (r === end[0] && c === end[1]) {
       let cur: Coord | null = [r, c];
       while (cur) {
-        const [pr, pc] = cur;
+        const pr: number = cur[0];
+        const pc: number = cur[1];
         if (g[pr][pc] !== 'start' && g[pr][pc] !== 'end') g[pr][pc] = 'path';
         cur = prev[key(pr, pc)] ?? null;
       }
